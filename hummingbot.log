@@ -1,0 +1,64 @@
+2025-01-21 12:56:52,258 - 15 - hummingbot.client.hummingbot_application - INFO - Creating the clock with tick size: 1.0
+2025-01-21 12:56:52,260 - 15 - hummingbot.client.hummingbot_application - INFO - start command initiated.
+2025-01-21 12:56:53,001 - 15 - hummingbot.strategy.script_strategy_base - INFO - async_task started
+2025-01-21 12:56:53,710 - 15 - hummingbot.core.rate_oracle.rate_oracle - INFO - Network status has changed to NetworkStatus.CONNECTED. Starting networking...
+2025-01-21 12:56:53,803 - 15 - hummingbot.strategy.script_strategy_base - INFO - Sent subscription request: {'jsonrpc': '2.0', 'id': 2, 'method': 'eth_subscribe', 'params': ['alchemy_pendingTransactions', {'toAddress': ['0xBA12222222228d8Ba445958a75a0704d566BF2C8'], 'hashesOnly': False}]}
+2025-01-21 12:56:54,066 - 15 - hummingbot.strategy.script_strategy_base - INFO - Checking for conflicting transactions
+2025-01-21 12:56:54,068 - 15 - hummingbot.strategy.script_strategy_base - INFO - Received message: {"id":2,"result":"0xebee5702f22d9c21d6de925dc509a192","jsonrpc":"2.0"}
+2025-01-21 12:56:54,069 - 15 - hummingbot.strategy.script_strategy_base - INFO - No result in message
+2025-01-21 12:56:54,070 - 15 - hummingbot.strategy.script_strategy_base - INFO - async_task (1)
+2025-01-21 12:56:54,071 - 15 - hummingbot.strategy.script_strategy_base - DEBUG - POST /network/balance [ address: 0x1caF820bCb6CEFc9deCad36f11fAF4024A9bcF0b, tokens: ETH, ('GXX1', 'UXXX1') ]
+2025-01-21 12:56:59,546 - 15 - hummingbot.strategy.script_strategy_base - INFO - Balances for 0x1caF820bCb6CEFc9deCad36f11fAF4024A9bcF0b: {'ETH': '0.547014233423411434', 'GXX1': '48500.00', 'UXXX1': '51453.868482'}
+2025-01-21 12:56:59,602 - 15 - hummingbot.strategy.script_strategy_base - INFO - Balance ETH. Required: 0.001836991000000000, Available: 0.547014233423411434
+2025-01-21 12:56:59,603 - 15 - hummingbot.strategy.script_strategy_base - INFO - async_task (2)
+2025-01-21 12:57:00,768 - 15 - hummingbot.strategy.script_strategy_base - INFO - Rates API: {'symbol': 'GSUUSDT', 'rate': '0.96223261', 'time': '2025-01-21T13:56:56'}
+2025-01-21 12:57:00,770 - 15 - hummingbot.strategy.script_strategy_base - DEBUG - POST /amm/price [ connector: balancer, base: GXX1, quote: UXXX1, amount: 1, side: TradeType.SELL ]
+2025-01-21 12:57:00,772 - 15 - hummingbot.strategy.script_strategy_base - DEBUG - POST /amm/price [ connector: balancer, base: UXXX1, quote: GXX1, amount: 1, side: TradeType.SELL ]
+2025-01-21 12:57:12,383 - 15 - hummingbot.strategy.script_strategy_base - INFO - TradeType.SELL UXXX1-GXX1: Amount: 1.000000 Price: 1.0320069
+2025-01-21 12:57:12,431 - 15 - hummingbot.strategy.script_strategy_base - INFO - TradeType.SELL GXX1-UXXX1: Amount: 1.00 Price: 0.96879201
+2025-01-21 12:57:12,433 - 15 - hummingbot.strategy.script_strategy_base - INFO - External api, gsuusdt, base: 0.962233 quote: 1.039250
+2025-01-21 12:57:12,434 - 15 - hummingbot.strategy.script_strategy_base - INFO - Balancer sdk, GXX1-UXXX1, base: 0.96879201 quote: 1.0320069
+2025-01-21 12:57:12,435 - 15 - hummingbot.strategy.script_strategy_base - INFO - 
+            Rate Analysis:
+            External Base Rate: 0.962233
+            Pool Base Rate: 0.96879201
+            Base Difference: 0.00655901
+            External Quote Rate: 1.039250
+            Pool Quote Rate: 1.0320069
+            Quote Difference: -0.0072431
+            Max Difference: 0.00655901
+            
+2025-01-21 12:57:12,436 - 15 - hummingbot.strategy.script_strategy_base - INFO - async_task (3)
+2025-01-21 12:57:12,437 - 15 - hummingbot.strategy.script_strategy_base - INFO - Action: SELL GXX1 for UXXX1
+2025-01-21 12:57:12,438 - 15 - hummingbot.strategy.script_strategy_base - INFO - async_task (4)
+2025-01-21 12:57:12,480 - 15 - hummingbot.strategy.script_strategy_base - INFO - RateOracle ETH to USD conversion rate: 3310.10500000
+2025-01-21 12:57:13,366 - 15 - hummingbot.strategy.script_strategy_base - INFO - Rates API: {'symbol': 'GSUUSDT', 'rate': '0.96214253', 'time': '2025-01-21T13:57:09'}
+2025-01-21 12:57:13,368 - 15 - hummingbot.strategy.script_strategy_base - INFO - UXXX1 to USDT conversion rate: 1.039348
+2025-01-21 12:57:13,369 - 15 - hummingbot.strategy.script_strategy_base - INFO - Average tx cost in ethers 0.001836991000000000, in USD 6.080634, in UXXX1 6.080634
+2025-01-21 12:57:13,370 - 15 - hummingbot.strategy.script_strategy_base - INFO - Total required token to be sold to have a minimum profit 16.080634
+2025-01-21 12:57:13,371 - 15 - hummingbot.strategy.script_strategy_base - INFO - Minimum order amount 3677 is higher than maximum order amount 1000. Skipping.
+2025-01-21 12:57:13,372 - 15 - hummingbot.strategy.script_strategy_base - INFO - async_task (5)
+2025-01-21 12:57:13,373 - 15 - hummingbot.strategy.script_strategy_base - DEBUG - POST /network/balance [ address: 0x1caF820bCb6CEFc9deCad36f11fAF4024A9bcF0b, tokens: ETH, ('GXX1', 'UXXX1') ]
+2025-01-21 12:57:17,110 - 15 - hummingbot.strategy.script_strategy_base - INFO - Balances for 0x1caF820bCb6CEFc9deCad36f11fAF4024A9bcF0b: {'ETH': '0.547014233423411434', 'GXX1': '48500.00', 'UXXX1': '51453.868482'}
+2025-01-21 12:57:17,111 - 15 - hummingbot.strategy.script_strategy_base - INFO - Balance GXX1. Required: 100, Available: 48500.00
+2025-01-21 12:57:17,112 - 15 - hummingbot.strategy.script_strategy_base - INFO - async_task (6)
+2025-01-21 12:57:17,113 - 15 - hummingbot.strategy.script_strategy_base - INFO - Checking for conflicting transactions
+2025-01-21 12:57:17,116 - 15 - hummingbot.strategy.script_strategy_base - INFO - Received message: {"id":2,"result":"0xebee5702f22d9c21d6de925dc509a192","jsonrpc":"2.0"}
+2025-01-21 12:57:17,117 - 15 - hummingbot.strategy.script_strategy_base - INFO - No result in message
+2025-01-21 12:57:17,118 - 15 - hummingbot.strategy.script_strategy_base - INFO - async_task (7)
+2025-01-21 12:57:17,120 - 15 - hummingbot.strategy.script_strategy_base - DEBUG - POST /amm/trade [ connector: balancer, base: GXX1, quote: UXXX1, amount: 100, price: 1 side: TradeType.SELL ]
+2025-01-21 12:57:26,839 - 15 - hummingbot.client.hummingbot_application - INFO - stop command initiated.
+2025-01-21 12:57:30,889 - 15 - hummingbot.strategy.script_strategy_base - INFO - 
+            Trade Executed:
+            Base: GXX1
+            Quote: UXXX1
+            Amount: 100
+            Price: 1
+            Limit Price: 0.5
+            Side: TradeType.SELL
+            Tx hash: 0x2d7901486d387620c624dfc235a721a4f539c0e3fe870f227941e4459551eba3
+            
+2025-01-21 12:57:30,890 - 15 - hummingbot.strategy.script_strategy_base - INFO - async_task (8)
+2025-01-21 12:57:35,892 - 15 - hummingbot.strategy.script_strategy_base - INFO - async_task completed
+2025-01-21 12:57:35,894 - 15 - hummingbot.strategy.script_strategy_base - DEBUG - POST /network/poll [ txHash: 0x2d7901486d387620c624dfc235a721a4f539c0e3fe870f227941e4459551eba3 ]
+2025-01-21 12:57:37,870 - 15 - hummingbot.strategy.script_strategy_base - INFO - Trade with transaction hash 0x2d7901486d387620c624dfc235a721a4f539c0e3fe870f227941e4459551eba3 has been executed successfully.
