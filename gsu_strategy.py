@@ -164,7 +164,7 @@ class AmmPriceExample(ScriptStrategyBase):
     def init_web3(self):
         self.w3 = Web3(Web3.HTTPProvider(self.config.rpc_url))
         self.vault_contract_address = self.w3.to_checksum_address(self.config.balancer_vault_address)
-        self.contract = self.w3.eth.contract(self.vault_contract_address, abi=self.vault_abi)
+        self.contract = self.w3.eth.contract(self.vault_contract_address, abi=self.swap_event_abi)
 
     def complete_async_task(self):
         if self.on_going_task:
@@ -665,8 +665,6 @@ class AmmPriceExample(ScriptStrategyBase):
                     self.logger().info("No result in message")
             except json.JSONDecodeError:
                 self.logger().info("Error decoding JSON")      
-            except websocket.exceptions.ConnectionClosed as e:
-                self.logger().info(f"WebSocket connection closed: {e}")
         
         def on_error(ws, error):
             """
@@ -732,9 +730,7 @@ class AmmPriceExample(ScriptStrategyBase):
                     self.logger().info("No result in message")
             except json.JSONDecodeError:
                 self.logger().info("Error decoding JSON")        
-            except websocket.exceptions.ConnectionClosed as e:
-                self.logger().info(f"WebSocket connection closed: {e}")
-        
+            
         def on_error(ws, error):
             """
             Callback for when an error occurs.
