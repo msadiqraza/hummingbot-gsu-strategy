@@ -463,7 +463,7 @@ class AmmPriceExample(ScriptStrategyBase):
                 self.logger().debug(f"POST /network/poll [ txHash: {txHash} ]")
                 pollData = await GatewayHttpClient.get_instance().get_transaction_status(chain, network, txHash)
                 transaction_status = pollData.get("txStatus")
-                self.logger().info(f"Transaction status: {transaction_status}")
+                self.logger().info(f"Transaction status: {pollData}")
                 if transaction_status == 1:
                     self.logger().info(f"Trade with transaction hash {txHash} has been executed successfully.")
                     self.remove_pending_transaction(txHash)
@@ -471,6 +471,7 @@ class AmmPriceExample(ScriptStrategyBase):
                 elif transaction_status in [-1, 0, 2]:
                     self.logger().info(f"Trade is pending confirmation, Transaction hash: {txHash}")
                     await asyncio.sleep(5)
+                    
                 else:
                     self.logger().info(f"Unknown txStatus: {transaction_status}")
                     self.logger().info(f"{pollData}")
@@ -703,7 +704,6 @@ class AmmPriceExample(ScriptStrategyBase):
 
                     if bot_gas_price < tx_gas_price:
                         conflict = self.decode_input( transaction['input'], transaction['hash'])
-                        self.logger().info(f"Conflict is: {conflict}")                    
                     else:
                         self.logger().info("trading_bot_gas is higher than this_tx_gas. Not a conflict")
                 else:
