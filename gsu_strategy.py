@@ -137,8 +137,7 @@ class AmmPriceExample(ScriptStrategyBase):
         
 
     def on_tick(self):
-        # self.get_ws_pending_txs()stop
-        
+        # self.get_ws_pending_txs()
         # only execute once
         if not self.on_going_task:
             self.on_going_task = True
@@ -463,6 +462,7 @@ class AmmPriceExample(ScriptStrategyBase):
             try:
                 self.logger().debug(f"POST /network/poll [ txHash: {txHash} ]")
                 pollData = await GatewayHttpClient.get_instance().get_transaction_status(chain, network, txHash)
+                transaction_status = pollData.get("txStatus")
                 self.logger().info(f"Transaction status: {transaction_status}")
                 if transaction_status == 1:
                     self.logger().info(f"Trade with transaction hash {txHash} has been executed successfully.")
