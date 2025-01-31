@@ -600,16 +600,10 @@ class AmmPriceExample(ScriptStrategyBase):
   
     def decode_input(self, input_data: str, ws_tx_hash:str) -> bool:
         
-        start_decoding = time.time()
-        
         decoded_input = self.contract.decode_function_input(input_data)
         
-        end_decoded_input = time.time() - start_decoding
-        self.logger().info(f"Time to handle decoded input: {end_decoded_input:.2f} ms")
-        
-        
         method = str(decoded_input[0])
-        pool_id = None
+        pool_id = set()
         kind = None
         base_asset = None
         symbol = None
@@ -620,20 +614,19 @@ class AmmPriceExample(ScriptStrategyBase):
         if 'batchSwap' in method:
             # Extract the swaps array from decoded input
             swaps = decoded_input[1]['swaps']
-
-            # Iterate through all poolIds in the swaps array
-            for index, swap in enumerate(swaps):
-                pool_id = Web3.to_hex(swap['poolId'])
-                self.logger().info(f"Pool ID {index + 1}: {pool_id}")
-
             kind = decoded_input[1]['kind']
             base_asset = decoded_input[1]['swaps'][0]['assetIn']
+
+            # Iterate through all poolIds in the swaps array
+            for swap in swaps:
+                pool_id.add(Web3.to_hex(swap['poolId']))
+                self.logger().info(f"Pool ID {index + 1}: {pool_id}")
 
             erc20_contract = self.w3.eth.contract(Web3.to_checksum_address(base_asset), abi=self.erc20_abi)
             symbol = erc20_contract.functions.symbol().call()
 
         else:
-            pool_id = Web3.to_hex(decoded_input[1]['singleSwap']['poolId'])
+            pool_id.add(Web3.to_hex(decoded_input[1]['singleSwap']['poolId']))
             kind = decoded_input[1]['singleSwap']['kind']
             base_asset = decoded_input[1]['singleSwap']['assetIn']
 
@@ -649,7 +642,7 @@ class AmmPriceExample(ScriptStrategyBase):
             """
         )        
 
-        if pool_id == self.pool_id: 
+        if self.pool_id in pool_id: 
             if kind == 0 and symbol == self.base:
                 self.logger().info("Swap kind is 0. Base Matches. Assigning to ws_pending_txs[0]")
                 self.ws_pending_txs["0"].append(ws_tx_hash)
@@ -675,8 +668,6 @@ class AmmPriceExample(ScriptStrategyBase):
         """
         Starts the WebSocket connection.
         """
-
-        start_ws = None
 
         def on_message(ws, message):
             """
@@ -721,7 +712,6 @@ class AmmPriceExample(ScriptStrategyBase):
             """
             Callback for when the WebSocket connection is closed.
             """
-            end_ws = time.time() - start_ws
             self.logger().info(f"WebSocket connection closed {end_ws:.2f} ms")
         
         def on_open(ws):
@@ -729,7 +719,6 @@ class AmmPriceExample(ScriptStrategyBase):
             Callback for when the WebSocket connection is opened.
             """
             self.logger().info("WebSocket connection established")
-            start_ws = time.time()
 
             # Subscribe to pending transactions
             ws.send(json.dumps(self.subscription_pending_request))
